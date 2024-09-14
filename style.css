@@ -1,0 +1,77 @@
+*
+{
+    font-family: "Lexend Deca", sans-serif;
+    color: white;
+    box-sizing: border-box;
+}
+body
+{
+    background: linear-gradient(180deg, #3232a2 50%, #5b1ac4 50%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: 200% 200%;
+    background-position: 50% 50%;
+    transition: 1s;
+}
+.container
+{
+    /* display: flex;
+    justify-content: space-between;
+    flex-direction: column; */
+    position: relative;
+    width: 80vw;
+    height: 40vh;
+    font-size: 2em;
+}
+#dailyPlanner
+{
+    position: absolute;
+    top: 75%;
+    right: 60%;
+    transition: .2s;
+}
+#dailyPlanner:hover
+{
+    font-size: 1.2em;
+    transition: .4s;
+    right: 57%;
+    top: 73%;
+    cursor: pointer;
+}
+#todoList
+{
+    position: absolute;
+    top: 10%;
+    left: 60%;
+    transition: .2s;
+    /* border-bottom: white;
+    border-bottom-width: 1px;
+    border-bottom-style: solid; */
+}
+#todoList:hover
+{
+    font-size: 1.2em;
+    transition: .4s;
+    left: 59%;
+    top: 8%;
+    cursor: pointer;
+}
+/* @keyframes todoAnimation {
+    0% {background: linear-gradient(180deg, #3232a2 50%, #801ac4 50%);}
+    50% {background: linear-gradient(180deg, #3232a2 75%, #801ac4 75%);}
+    100% {background: linear-gradient(180deg, #3232a2 99%, #801ac4 100%)}
+} */
+
+/* @keyframes todoAnimation
+{
+    0% {background-position: 0% 0%;}
+    100% {background-position: 100% 20%;}
+} */
+
+@keyframes todoAnimation
+{
+    0%{background-position:50% 50%}
+    100%{background-position:0% 0%}
+}

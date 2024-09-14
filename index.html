@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css"><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div id="todoList">Todo List</div>
+        <div id="dailyPlanner">Daily Planner</div>
+    </div>
+</body>
+<script>
+
+    todoList = document.getElementById("todoList");
+    daily = document.getElementById("dailyPlanner");
+
+    console.log(todoList);
+    todoList.onclick = function() {
+        document.body.style.backgroundPosition = '0% 0%';
+        daily.style.opacity = '0';
+        todoList.style.transition = '1s';
+        todoList.style.opacity = '0';
+        setTimeout((a) =>
+        {
+            window.location.href = "./cindex.html";
+        }, 1000);
+    };
+
+    daily.onclick = function() {
+        document.body.style.backgroundPosition = '100% 100%';
+        todoList.style.opacity = '0';
+        daily.style.transition = '1s';
+        daily.style.opacity = '0';
+        setTimeout((a) =>
+        {
+            window.location.href = "./kindex.html";
+
+        }, 1000);
+    };
+
+</script>
+</html>
