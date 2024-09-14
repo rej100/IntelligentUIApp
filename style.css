@@ -1,8 +1,11 @@
 *
 {
-    font-family: "Lexend Deca", sans-serif;
+    font-family: "Lato", sans-serif;
     color: white;
     box-sizing: border-box;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
 }
 body
 {
@@ -23,19 +26,19 @@ body
     position: relative;
     width: 80vw;
     height: 40vh;
-    font-size: 2em;
+    font-size: 2.3em;
 }
 #dailyPlanner
 {
     position: absolute;
     top: 75%;
     right: 60%;
-    transition: .2s;
+    transition: .15s;
 }
 #dailyPlanner:hover
 {
     font-size: 1.2em;
-    transition: .4s;
+    transition: .3s;
     right: 57%;
     top: 73%;
     cursor: pointer;
@@ -45,7 +48,7 @@ body
     position: absolute;
     top: 10%;
     left: 60%;
-    transition: .2s;
+    transition: .15s;
     /* border-bottom: white;
     border-bottom-width: 1px;
     border-bottom-style: solid; */
@@ -53,7 +56,7 @@ body
 #todoList:hover
 {
     font-size: 1.2em;
-    transition: .4s;
+    transition: .3s;
     left: 59%;
     top: 8%;
     cursor: pointer;
