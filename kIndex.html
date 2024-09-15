@@ -4,21 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive UI</title>
-    <link rel="stylesheet" href="cStyle.css">
+    <link rel="stylesheet" href="k.css">
 </head>
 <body>
-    <div class="bodyContainer">
-        <div class="phoneContainer">
-            <div class="doitContainer">
-                <p>Kleks jest lepszy</p>
+
+    <header> <span> Daily Planner </span> </header>
+
+    <div id="formContainer">
+        <div id="addTaskForm">
+            <label>Title: <input type="text" id="title"></label>
+            <label>Task's start time: <input type="time" id="start"></label>
+            <label>Task's duration(in minutes): <input type="number" id="duration"></label>
+            <label>Task's category: 
+                <select name="category" id="category">
+                </select>
+            </label>
+            <div class="buttonContainer">
+                <button onclick="submitTask()">Submit</button>
+                <button onclick="cancelWindow('addTaskForm')">Cancel</button>
             </div>
-            <div class="navbar">
-                <button class="btnDefault" id="btnKleks" onclick="window.location.href='kIndex.html';">K</button>
-                <button class="btnDefault" id="btnCichy" onclick="window.location.href='cIndex.html';">C</button>
+        </div>
+        <div id="addCategory">
+            <label>New Category: <input type="text" id="newCategory"></label>
+            <div class="buttonContainer">
+                <button onclick="addCategory()">Submit</button>
+                <button onclick="cancelWindow('addCategory')">Cancel</button>
             </div>
         </div>
     </div>
 
-    <script src="cScript.js"></script>
+    <main>
+        <div class="legend">
+            <p>0:00</p>
+            <p>1:00</p>
+            <p>2:00</p>
+            <p>3:00</p>
+            <p>4:00</p>
+            <p>5:00</p>
+            <p>6:00</p>
+            <p>7:00</p>
+            <p>8:00</p>
+            <p>9:00</p>
+            <p>10:00</p>
+            <p>11:00</p>
+            <p>12:00</p>
+            <p>13:00</p>
+            <p>14:00</p>
+            <p>15:00</p>
+            <p>16:00</p>
+            <p>17:00</p>
+            <p>18:00</p>
+            <p>19:00</p>
+            <p>20:00</p>
+            <p>21:00</p>
+            <p>22:00</p>
+            <p>23:00</p>
+            <p>24:00</p>
+        </div>
+        <div class="tasks" id="t">
+            <hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr><hr></hr>
+        </div>
+        <section class="addContent">
+            <section class="addTask">
+                <button onclick="showAddWindow('addTaskForm')">Add Task</button>
+            </section>
+            <section class="addCategory">
+                <button onclick="showAddWindow('addCategory')">Add Category</button>
+            </section>
+        </section>
+    </main>
+
+    <footer>
+        <button class="btnDefault" id="btnKleks" onclick="window.location.href='kIndex.html';">K</button>
+        <button class="btnDefault" id="btnCichy" onclick="window.location.href='cIndex.html';">C</button>
+    </footer>
+
+    <script src="k.js"></script>
 </body>
 </html>

@@ -1,0 +1,174 @@
+* {
+    font-family: "Lato", sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    background: #ebebeb;
+}
+header {
+    font-weight: 700;
+    font-size: 3em;
+    width: 100vw;
+    height: 14vh;
+    line-height: 14vh;
+    text-align: center;
+    background: #3232a2;
+}
+header span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+    color: #efefef;
+}
+main {
+    margin-top: 1vh;
+    height: 75vh;
+    width: 100vw;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.legend {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    width: 10vw;
+    height: 250vh;
+}
+.legend p {
+    color: #3232a2;
+    height: 10vh;
+    margin-top: 1vw;
+}
+.tasks {
+    height: 250vh;
+    width: 50vw;
+    position: relative;
+}
+
+hr {
+    position: absolute;
+    right: 0;
+    left: 0;
+    width: 50vw;
+    height: 1px;
+    border: none;
+    border-top: 1px dashed black;
+    color: #fff;
+    background-color: #fff;
+}
+
+.addContent {
+    position: sticky;
+    top: 36%;
+    width: 15vw;
+    min-width: 120px;
+    display: flex;
+    flex-direction: column;
+    height: 20vh;
+    justify-content: space-around;
+    align-items: center;
+}
+.addContent * {
+    width: 15vw;
+    min-width: 120px;
+}
+
+.task {
+    position: absolute;
+    right: 4%;
+    left: 4%;
+    background: #3232a2;
+    color: #efefef;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1em;
+}
+
+footer {
+    height: 10vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#formContainer
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#addTaskForm {
+    min-width: 265px;
+    display: flex;
+    flex-direction: column;
+    padding: 3rem 4rem;
+    color: #efefef;
+    background: #3232a2;
+    border-radius: 2rem;
+    display: none;
+    justify-content: space-evenly;
+    z-index: 2;
+}
+#addTaskForm label {
+    padding: .5rem 0;
+}
+
+#addCategory {
+    min-width: 265px;
+    display: flex;
+    flex-direction: column;
+    padding: 3rem 4rem;
+    color: #efefef;
+    background: #3232a2;
+    border-radius: 2rem;
+    display: none;
+    justify-content: space-evenly;
+    z-index: 2;
+}
+#addCategory label {
+    padding: .5rem 0;
+}
+main button {
+  background-image: linear-gradient(122deg, #3232a2, #5b1ac4);
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #efefef;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-size: 16px;
+  font-weight: 500;
+  width: 9vw;
+  height: 4rem;
+  padding: 0 1.6rem;
+  text-align: center;
+  text-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
+  transition: all .5s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+main button:hover {
+  /* box-shadow: rgba(80, 63, 205, 0.5) 0 1px 30px; */
+  box-shadow: #3232a2a1 0 1px 30px;
+  transition-duration: .1s;
+}
+
+@media (min-width: 768px) {
+  .button-36 {
+    padding: 0 2.6rem;
+  }
+}
