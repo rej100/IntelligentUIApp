@@ -140,6 +140,17 @@ footer {
 #addCategory label {
     padding: .5rem 0;
 }
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.buttonContainer button {
+    margin: 1rem .5rem 0rem;
+}
+
 main button {
   background-image: linear-gradient(122deg, #3232a2, #5b1ac4);
   border-radius: 8px;
@@ -167,8 +178,43 @@ main button:hover {
   transition-duration: .1s;
 }
 
-@media (min-width: 768px) {
-  .button-36 {
-    padding: 0 2.6rem;
-  }
+#formContainer button {
+  appearance: none;
+  background-color: #FAFBFC;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+  box-sizing: border-box;
+  color: #24292E;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  list-style: none;
+  padding: 6px 16px;
+  position: relative;
+  transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+  word-wrap: break-word;
+}
+
+footer button {
+    appearance: none;
+    cursor: pointer;
+    margin: 0 .5rem;
+    background-color: #4444a7;
+    border: none;
+    border-radius: .75rem;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 1.125rem;
+    font-weight: 600;
+    padding: .75rem 1.5rem;
+    text-align: center;
+    z-index: 2;
 }

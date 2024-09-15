@@ -82,6 +82,12 @@ function showAddWindow(s)
 function addCategory()
 {
     let category = document.getElementById("newCategory").value;
+
+    if(category === '')
+    {
+        alert('Fill in all input fields');
+        return;
+    }
     
     if(categories.includes(category)) alert("This category already exisits");
     else categories.push(category);
@@ -95,6 +101,17 @@ function submitTask()
 {
     let taskDiv = document.getElementById("addTaskForm");
     addFormData(taskDiv, list);
+
+    let data = true;
+    list.forEach(element => {
+        if(element === '')
+        {
+            alert("Fill in all input fields");
+            data = false;
+            list = [];
+            return;
+        }
+    });
 
     let title = list[0];
     let first = list[1];

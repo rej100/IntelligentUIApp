@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
     <title>Interactive UI</title>
     <link rel="stylesheet" href="k.css">
 </head>
@@ -14,7 +17,7 @@
         <div id="addTaskForm">
             <label>Title: <input type="text" id="title"></label>
             <label>Task's start time: <input type="time" id="start"></label>
-            <label>Task's duration(in minutes): <input type="number" id="duration"></label>
+            <label>Task's duration(in minutes): <input type="number" id="duration" min="10" max="1440"></label>
             <label>Task's category: 
                 <select name="category" id="category">
                 </select>
@@ -75,8 +78,8 @@
     </main>
 
     <footer>
-        <button class="btnDefault" id="btnKleks" onclick="window.location.href='kIndex.html';">K</button>
-        <button class="btnDefault" id="btnCichy" onclick="window.location.href='cIndex.html';">C</button>
+        <button onclick="window.location.href='./kIndex.html'">Daily Planner</button>
+        <button onclick="window.location.href='./cIndex.html'">Todo List</button>
     </footer>
 
     <script src="k.js"></script>
