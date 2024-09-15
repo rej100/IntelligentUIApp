@@ -92,11 +92,15 @@ hr {
 }
 
 footer {
-    height: 10vh;
-    width: 100vw;
     display: flex;
+    gap: 21px;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
+    margin-top: auto;
+    width: 100vw;
+    height: 10vh;
+    background-color: #B0B0B0;;
 }
 #formContainer
 {
@@ -204,17 +208,19 @@ main button:hover {
 }
 
 footer button {
-    appearance: none;
-    cursor: pointer;
-    margin: 0 .5rem;
-    background-color: #4444a7;
+    background: none;
     border: none;
-    border-radius: .75rem;
-    color: #FFFFFF;
-    cursor: pointer;
-    font-size: 1.125rem;
-    font-weight: 600;
-    padding: .75rem 1.5rem;
-    text-align: center;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    font-size: xx-large;
+    border-radius: 10px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+
+    background-color: #ffffff;
+    width: 50px;
+    height: 50px;
+
+    transition: background-color 0.3s;
     z-index: 2;
 }
