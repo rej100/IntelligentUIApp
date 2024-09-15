@@ -1,14 +1,24 @@
-*
+* 
 {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: "Lato", sans-serif;
+    box-sizing: border-box;
+
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.example::-webkit-scrollbar
+{
+    display: none;
 }
 
 body
 {
     background-color: #e6e6e6;
-    padding: 10px;
+    /* padding: 10px; */
 }
 
 .bodyContainer
@@ -29,8 +39,9 @@ body
 
 .doitContainer
 {
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
-    background-color: white;
 }
 
 .navbar
@@ -43,6 +54,15 @@ body
     margin-top: auto;
     width: 100%;
     height: 60px;
+}
+
+#doitNavbar
+{
+    background-color: #D9D9D9;
+}
+
+#phoneNavbar
+{
     background-color: #B0B0B0;
 }
 
@@ -53,8 +73,9 @@ body
     padding: 0;
     margin: 0;
     font: inherit;
-    border-radius: 4px; /* Adjust this value to change the roundness */
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25); /* Horizontal offset, Vertical offset, Blur radius, Color */
+    font-size: xx-large;
+    border-radius: 10px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 
     background-color: #ffffff;
     width: 50px;
@@ -66,4 +87,205 @@ body
 .btnDefault:hover
 {
     background-color: #D9D9D9;
+}
+
+.contentContainer
+{
+    overflow-y: scroll;
+    max-height: 810px;
+}
+
+.taskCategory
+{
+    background-color: #f2f2f2;
+    border-radius: 4px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    min-height: 160px;
+    margin: 18px;
+
+    padding-bottom: 1px;
+}
+
+.taskCategoryLabel
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    font-size: x-large;
+    border-radius: 4px 4px 0px 0px;
+    background-color: #e6e6e6;
+    height: 40px;
+    border-bottom: 1px solid;
+    
+}
+
+.taskContainer
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 11px;
+    gap: 10px;
+}
+
+.testTask
+{
+    width: 373px;
+    height: 40px;
+    background-color: cyan;
+}
+
+.task
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    width: 373px;
+    height: 40px;
+    border-radius: 4px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    
+}
+.taskRight
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+}
+.taskImpCont
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    margin-right: 4px;
+    padding-left: 4px;
+    padding-right: 4px;
+    width: 30px;
+}
+.taskCheckbox
+{
+    transform: scale(1.5);
+    margin-left: 8px;
+    margin-right: 10px;
+}
+.taskDateSpan
+{
+    margin-right: 5px;
+}
+
+.createTaskContainer
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+    background: goldenrod;
+}
+
+.createTaskNavbar
+{
+    display: flex;
+    gap: 21px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+    width: 100%;
+    height: 120px;
+    background-color: #d9d9d9;
+}
+
+.btnCreateTask
+{
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    font-size: 60px;
+    border-radius: 10px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+
+    width: 100px;
+    height: 100px;
+}
+
+#taskAcceptButton
+{
+    background-color: #6FFF00;
+}
+
+#taskCancelButton
+{
+    background-color: #FF2F2F;
+}
+
+.form-container
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+div.createTaskContainer form
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group
+{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+div.createTaskContainer label
+{
+    font-size: large;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+div.createTaskContainer input[type="text"],
+div.createTaskContainer input[type="date"],
+div.createTaskContainer input[type="number"],
+div.createTaskContainer input[type="color"],
+div.createTaskContainer select
+{
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+    height: 50px;
+    font-size: large;
+}
+
+div.createTaskContainer input[type="text"]
+{
+    width: 400px;
+}
+
+div.createTaskContainer input[type="number"]
+{
+    width: 60px;
+}
+
+.button-group
+{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 }
