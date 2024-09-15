@@ -89,6 +89,11 @@ hr {
     justify-content: center;
     align-items: center;
     border-radius: 1em;
+    padding: 0 1rem;
+}
+.task span
+{
+    text-align: center;
 }
 
 footer {

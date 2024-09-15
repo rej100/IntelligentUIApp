@@ -1,6 +1,6 @@
 const tasks = document.getElementById("t")
 let id = 0;
-let categories = ['self-study', 'work', 'transport', 'workout', 'lecture', 'tutorial', 'lab', 'project meeting', 'other', 'nap']
+let categories = ['self-study', 'work', 'transport', 'workout', 'lecture', 'tutorial', 'lab', 'project meeting', 'other']
 let intervals = [];
 
 for (let i = 0; i < tasks.children.length; i++) 
@@ -34,11 +34,9 @@ function addTask(start, end, name, category)
     intervals.push([start, end]); 
 }
 
-addTask(2, 2.5, 'niespanie', 'lol');
-addTask(7, 12.5, 'niespanie', 'lol');
-addTask(20, 22, 'niespanie', 'lol');
-//addTask(8, 11, 'spanie', 'yup');
-
+addTask(8.5, 13, 'Introduction to AI', 'tutorial');
+addTask(13.5, 15.5, 'Computer Netorks', 'lecture');
+addTask(16, 18, 'IUI', 'tutorial');
 
 function cancelWindow(s)
 {
