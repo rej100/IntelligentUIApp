@@ -10,77 +10,71 @@
     <link rel="stylesheet" href="cStyle.css">
 </head>
 <body>
-    <div class="bodyContainer">
-        <div class="phoneContainer">
-            <div id="createTaskContainer" class="createTaskContainer">
-                <div class="form-container">
-                    <form>
-                        <div class="form-group">
-                            <label for="text">Text</label>
-                            <input type="text" id="tcText" placeholder="Placeholder">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="date">Date</label>
-                            <input type="date" id="tcDate" value="2024-09-16">
-                        </div>
-            
-                        <div class="form-group">
-                            <label for="importance">Importance (0 to 10)</label>
-                            <input type="number" id="tcImportance" value="10" min="0" max="10" step="1">
-                        </div>
-            
-                        <div class="form-group">
-                            <label for="color">Color</label>
-                            <input type="color" id="tcColor" value="#ffffff">
-                        </div>
-            
-                        <div class="form-group">
-                            <label for="section">Section</label>
-                            <select id="tcSection">
-                                <option value="3">Low Priority</option>
-                                <option value="2">Medium Priority</option>
-                                <option value="1">High Priority</option>
-                            </select>
-                        </div>
-
-                    </form>
-                </div>
-                <div class="createTaskNavbar">
-                    <button id="taskAcceptButton" class="btnCreateTask">✓</button>
-                    <button id="taskCancelButton" class="btnCreateTask">✖</button>
-                </div>
-            </div>
-            <div id="doitContainer" class="doitContainer">
-                <div id="contentContainer" class="contentContainer" >
-                    <div class="taskCategory", id="c1">
-                        <div class="taskCategoryLabel">High Priority</div>
-                        <div class="taskContainer"></div>
-                    </div>
-                    <div class="taskCategory", id="c2">
-                        <div class="taskCategoryLabel">Medium Priority</div>
-                        <div class="taskContainer">
-                        </div>
-                    </div>
-                    <div class="taskCategory", id="c3">
-                        <div class="taskCategoryLabel">Low Priority</div>
-                        <div class="taskContainer">
+    <div id="bodyContainer">
+        <div id="taskPageContainer" class="pageContainer">
+            <div id="taskCategoryContainer">
+                <div id="taskCategory3" class="taskCategory">
+                    <div class="taskCategoryHeader">High Priority</div>
+                    <div class="taskList">
+                        <div class="task">
+                            <div class="taskLeft">
+                                <input type="checkbox">
+                                <span>Task for testing the app</span>
+                            </div>
+                            <div class="taskRight">
+                                <div class="taskImportance">10</div>
+                                <div class="taskDate">01/01/2024</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div id="doitNavbar" class="navbar">
-                    <button class="btnDefault" id="btnHelp">?</button>
-                    <button class="btnDefault" id="btnAI">AI</button>
-                    <button class="btnDefault" id="btnAdd">+</button>
-                    <button class="btnDefault" id="btnTheme">T</button>
-                    <button class="btnDefault" id="btnClear">C</button>
+                <div id="taskCategory2" class="taskCategory">
+                    <div class="taskCategoryHeader">Medium Priority</div>
+                    <div class="taskList"></div>
+                </div>
+                <div id="taskCategory1" class="taskCategory">
+                    <div class="taskCategoryHeader">Low Priority</div>
+                    <div class="taskList"></div>
                 </div>
             </div>
-            <div id="phoneNavbar" class="navbar">
-                <button class="btnDefault" id="btnKleks" onclick="window.location.href='kIndex.html';"><img src="plan.png"></button>
-                <button class="btnDefault" id="btnCichy" onclick="window.location.href='cIndex.html';"><img src="task.png"></button>
-            </div>
+            <footer>
+                <button>T</button>
+                <button id="createTaskBtn">+</button>
+                <button id="clearDoneBtn"><img src="broom.png" alt=""></button>
+            </footer>
         </div>
+        <div id="createTaskPageContainer" class="pageContainer">
+            <div id="createTaskContentContainer">
+                <form id="taskForm">
+                    <label for="text">Task Description:</label>
+                    <input type="text" id="text" name="text" required>
+            
+                    <label for="importance">Importance (0-10):</label>
+                    <input type="number" id="importance" name="importance" min="0" max="10" required>
+            
+                    <label for="date">Due Date:</label>
+                    <input type="date" id="date" name="date">
+            
+                    <label for="color">Color:</label>
+                    <input type="color" id="color" name="color" value="#FFFFFF">
+            
+                    <label for="category">Category:</label>
+                    <select id="category" name="category" required>
+                        <option value="1">Low Priority</option>
+                        <option value="2">Medium Priority</option>
+                        <option value="3">High Priority</option>
+                    </select>
+                </form>
+            </div>
+            <footer>
+                <button id="taskAcceptBtn">&check;</button>
+                <button id="taskCancelBtn">X</button>
+            </footer>
+        </div>
+        <footer id="mainFooter">
+            <button><img src="plan.png" onclick="window.location.href='kIndex.html';"></button>
+            <button><img src="task.png" onclick="window.location.href='cIndex.html';"></button>
+        </footer>
     </div>
 
     <script src="cScript.js"></script>

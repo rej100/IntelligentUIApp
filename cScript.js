@@ -29,55 +29,65 @@ class Task
     }
 }
 
-document.getElementById("createTaskContainer").style.display = "none";
+document.getElementById("createTaskPageContainer").style.display="none"
 
 lastTaskID = 0;
 tasks = [];
 
-document.getElementById("btnAdd").addEventListener("click", handleAddBtn);
-document.getElementById("taskAcceptButton").addEventListener("click", handleTaskAcceptBtn);
-document.getElementById("taskCancelButton").addEventListener("click", handleTaskCancelBtn);
+document.getElementById("createTaskBtn").addEventListener("click", handleCreateTaskBtn);
+document.getElementById("clearDoneBtn").addEventListener("click", handleClearDoneBtn);
+document.getElementById("taskAcceptBtn").addEventListener("click", handleTaskAcceptBtn);
+document.getElementById("taskCancelBtn").addEventListener("click", handleTaskCancelBtn);
 
-
-
-function handleAddBtn()
+function handleCreateTaskBtn()
 {
-
-    switchToCreateTask();
+    switchToCreateTaskPage()
+    // createTask("test"+lastTaskID, 10, new Date(2024,0,1), new RGBA(255,255,255,1), 3)
 }
-
+function handleClearDoneBtn()
+{
+    clearDoneTasks()
+    rebuildTasks()
+}
 function handleTaskAcceptBtn()
 {
-    text = document.getElementById("tcText").value;
-    date = new Date(document.getElementById("tcDate").value);
-    importance = document.getElementById("tcImportance").value;
-    color = hexToRGBA(document.getElementById("tcColor").value);
-    category = parseInt(document.getElementById("tcSection").value);
-    createTask(text, importance, date, color, category)
+    taskDescription = document.getElementById('text').value;
+    importance = document.getElementById('importance').value;
+    dueDate = document.getElementById('date').value;
+    color = document.getElementById('color').value;
+    category = document.getElementById('category').value;
+    
+    if(dueDate == "")
+    {
+        dueDate = null
+    }
+    else
+    {
+        dueDate = new Date(dueDate)
+    }
+    color = hexToRGBA(color)
+    category = parseInt(category)
 
-    rebuildTasks();
-    switchToTaskList();
+    createTask(taskDescription, importance, dueDate, color, category)
+    rebuildTasks()
+    switchToTaskPage()
 }
-
 function handleTaskCancelBtn()
 {
-    rebuildTasks();
-    switchToTaskList();
+    switchToTaskPage()
+    rebuildTasks()
 }
 
-function switchToCreateTask()
+function switchToCreateTaskPage()
 {
-    document.getElementById("doitContainer").style.display = "none";
-    document.getElementById("phoneNavbar").style.display = "none";
-
-    document.getElementById("createTaskContainer").style.display = "flex";
+    document.getElementById("taskPageContainer").style.display="none"
+    document.getElementById("createTaskPageContainer").style.cssText=""
 }
 
-function switchToTaskList()
+function switchToTaskPage()
 {
-    document.getElementById("doitContainer").style.display = "flex";
-    document.getElementById("phoneNavbar").style.display = "flex";
-    document.getElementById("createTaskContainer").style.display = "none";
+    document.getElementById("taskPageContainer").style.cssText=""
+    document.getElementById("createTaskPageContainer").style.display="none"
 }
 
 function rebuildTasks()
@@ -90,7 +100,7 @@ function buildTasks()
 {
     tasks.forEach(task =>
     {
-        addTask(task);
+        addTaskToTaskList(task);
     })
 }
 
@@ -104,50 +114,55 @@ function removeAllTasks()
     });
 }
 
-function addTask(taskObj)
+function clearDoneTasks()
 {
-    // Create new task elements
-    const taskContainer = document.getElementById("c" + taskObj.category).querySelector(".taskContainer")
-    
-    const task = document.createElement('div');
-    task.classList.add('task');
-    task.style.backgroundColor = taskObj.color.toString();
-    
-    const taskLeft = document.createElement('div');
-    taskLeft.classList.add('taskLeft');
+    tasks = tasks.filter(task => !task.done)
+}
 
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.classList.add('taskCheckbox');
-    taskLeft.appendChild(checkbox);
+function addTaskToTaskList(task)
+{
+    taskCategoryContainer = document.getElementById("taskCategory" +task.category);
+    taskList = taskCategoryContainer.querySelector(".taskList")
 
-    const taskSpan = document.createElement('span');
-    taskSpan.classList.add('taskSpan');
-    taskSpan.textContent = taskObj.text;
-    taskLeft.appendChild(taskSpan);
-    
-    const taskRight = document.createElement('div');
-    taskRight.classList.add('taskRight');
+    const taskDiv = document.createElement("div");
+    taskDiv.classList.add("task");
+    taskDiv.style.backgroundColor = task.color.toString();
 
-    const taskImpCont = document.createElement('div');
-    taskImpCont.classList.add('taskImpCont');
+    const taskLeftDiv = document.createElement("div");
+    taskLeftDiv.classList.add("taskLeft");
 
-    const taskImpSpan = document.createElement('span');
-    taskImpSpan.classList.add('taskImpSpan');
-    taskImpSpan.textContent = taskObj.importance;
-    taskImpCont.appendChild(taskImpSpan);
-    taskRight.appendChild(taskImpCont);
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = task.done;
+    checkbox.addEventListener("change", () =>
+    {
+        task.done = checkbox.checked;
+    });
 
-    const taskDateSpan = document.createElement('span');
-    taskDateSpan.classList.add('taskDateSpan');
-    taskDateSpan.textContent = formatDate(taskObj.date)
-    taskRight.appendChild(taskDateSpan);
-    
-    task.appendChild(taskLeft);
-    task.appendChild(taskRight);
-    
-    // Append the new task to the task container
-    taskContainer.appendChild(task);
+    const taskText = document.createElement("span");
+    taskText.textContent = task.text;
+
+    taskLeftDiv.appendChild(checkbox);
+    taskLeftDiv.appendChild(taskText);
+
+    const taskRightDiv = document.createElement("div");
+    taskRightDiv.classList.add("taskRight");
+
+    const taskImportanceDiv = document.createElement("div");
+    taskImportanceDiv.classList.add("taskImportance");
+    taskImportanceDiv.textContent = task.importance;
+
+    const taskDateDiv = document.createElement("div");
+    taskDateDiv.classList.add("taskDate");
+    taskDateDiv.textContent = formatDate(task.date);
+
+    taskRightDiv.appendChild(taskImportanceDiv);
+    taskRightDiv.appendChild(taskDateDiv);
+
+    taskDiv.appendChild(taskLeftDiv);
+    taskDiv.appendChild(taskRightDiv);
+
+    taskList.appendChild(taskDiv);
 }
 
 function createTask(text, importance, date, color, category)
@@ -159,14 +174,21 @@ function createTask(text, importance, date, color, category)
 
 function formatDate(date)
 {
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-
-    const formattedDay = day < 10 ? `0${day}` : day;
-    const formattedMonth = month < 10 ? `0${month}` : month;
-
-    return `${formattedDay}/${formattedMonth}/${year}`;
+    if (date)
+    {
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+    
+        const formattedDay = day < 10 ? `0${day}` : day;
+        const formattedMonth = month < 10 ? `0${month}` : month;
+    
+        return `${formattedDay}/${formattedMonth}/${year}`;
+    }
+    else
+    {
+        return ""
+    }
 }
 
 function hexToRGBA(hex)
