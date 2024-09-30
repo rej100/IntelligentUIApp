@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="cStyle.css">
+    <link id="stylesheetLink" rel="stylesheet" href="cStyle.css">
 </head>
 <body>
     <div id="bodyContainer">
@@ -16,7 +16,7 @@
                 <div id="taskCategory3" class="taskCategory">
                     <div class="taskCategoryHeader">High Priority</div>
                     <div class="taskList">
-                        <div class="task">
+                        <!-- <div class="task">
                             <div class="taskLeft">
                                 <input type="checkbox">
                                 <span>Task for testing the app</span>
@@ -25,7 +25,7 @@
                                 <div class="taskImportance">10</div>
                                 <div class="taskDate">01/01/2024</div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div id="taskCategory2" class="taskCategory">
@@ -38,9 +38,9 @@
                 </div>
             </div>
             <footer>
-                <button>T</button>
+                <button id="changeThemeBtn"> <img src="cResources\moon.png" alt=""></button>
                 <button id="createTaskBtn">+</button>
-                <button id="clearDoneBtn"><img src="broom.png" alt=""></button>
+                <button id="clearDoneBtn"><img src="cResources\broom.png" alt=""></button>
             </footer>
         </div>
         <div id="createTaskPageContainer" class="pageContainer">

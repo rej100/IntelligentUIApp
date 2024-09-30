@@ -16,7 +16,7 @@ class RGBA
 
 class Task
 {
-    constructor(text, importance, date, color, category, id)
+    constructor(text, importance, date, color, category, id, done)
     {
         this.text = text;
         this.importance = importance;
@@ -24,21 +24,78 @@ class Task
         this.color = color;
         this.category = category;
         this.id = id;
+        this.done = done;
+    }
 
-        this.done = false;
+    static fromFakeTask(fakeTask)
+    {
+        return new Task(fakeTask.text, fakeTask.importance, new Date(fakeTask.date), new RGBA(fakeTask.color.r, fakeTask.color.g, fakeTask.color.b, fakeTask.color.a), fakeTask.category, fakeTask.id, fakeTask.done);
     }
 }
 
-document.getElementById("createTaskPageContainer").style.display="none"
+document.getElementById("createTaskPageContainer").style.display="none";
 
+themeid = 0;
 lastTaskID = 0;
 tasks = [];
+loadState();
 
+setInterval(saveState, 1000)
+
+document.getElementById("changeThemeBtn").addEventListener("click", handleChangeThemeBtn);
 document.getElementById("createTaskBtn").addEventListener("click", handleCreateTaskBtn);
 document.getElementById("clearDoneBtn").addEventListener("click", handleClearDoneBtn);
 document.getElementById("taskAcceptBtn").addEventListener("click", handleTaskAcceptBtn);
 document.getElementById("taskCancelBtn").addEventListener("click", handleTaskCancelBtn);
 
+function saveState()
+{
+    console.log("saving")
+    localStorage.setItem("saved", "true")
+    localStorage.setItem("themeid", themeid);
+    localStorage.setItem("lastTaskID", lastTaskID);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+function loadState()
+{
+    if (!(localStorage.getItem("saved") == null))
+    {
+        console.log("loading state")
+
+        themeid = parseInt(localStorage.getItem("themeid"));
+
+        lastTaskID = parseInt(localStorage.getItem("lastTaskID"));
+
+        tempTasks = JSON.parse(localStorage.getItem("tasks"));
+        tasks = [];
+        tempTasks.forEach(tempTask=>
+        {
+            tasks.push(Task.fromFakeTask(tempTask));
+        });
+
+        changeTheme(themeid)
+        rebuildTasks()
+
+    }
+    else
+    {
+        console.log("no saved state")
+    }
+}
+
+function handleChangeThemeBtn()
+{
+    if (themeid == 0)
+    {
+        themeid = 1;
+    }
+    else 
+    {
+        themeid = 0;
+    }
+    changeTheme(themeid);
+}
 function handleCreateTaskBtn()
 {
     switchToCreateTaskPage()
@@ -76,6 +133,23 @@ function handleTaskCancelBtn()
 {
     switchToTaskPage()
     rebuildTasks()
+}
+
+function changeTheme(themeid)
+{
+    stylesheetLink = document.getElementById("stylesheetLink");
+    changeThemeBtn = document.getElementById("changeThemeBtn");
+    img = changeThemeBtn.querySelector("img");
+    if (themeid == 0)
+    {
+        stylesheetLink.setAttribute("href", "cStyle.css");
+        img.setAttribute("src", "cResources\\moon.png");
+    }
+    else if (themeid == 1)
+    {
+        stylesheetLink.setAttribute("href", "cStyleDark.css");
+        img.setAttribute("src", "cResources\\sun.png");
+    }
 }
 
 function switchToCreateTaskPage()
@@ -167,7 +241,7 @@ function addTaskToTaskList(task)
 
 function createTask(text, importance, date, color, category)
 {
-    newTask = new Task(text, importance, date, color, category, lastTaskID);
+    newTask = new Task(text, importance, date, color, category, lastTaskID, false);
     tasks.push(newTask);
     lastTaskID++;
 }
