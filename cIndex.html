@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive UI AIIIIIIIIIIIIIIIIIIIIIIIIII</title>
+    <title>Interactive UI</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
@@ -61,12 +61,29 @@
                 <button id="taskCancelBtn">X</button>
             </footer>
         </div>
+        <div id="firstUsePageContainer" class="pageContainer">
+            <div id="firstUseContentContainer">
+                <div id="firstUseHeader">Please select categories of activites that you are likely to use the To-Do app for.</div>
+                <div id="firstUseCategoriesContainer">
+                    <div class="fuCategory" data-selected="false" data-id="0">Personal Growth (e.g., Reading, Learning)</div>
+                    <div class="fuCategory" data-selected="false" data-id="1">Work & Projects (e.g., Deadlines, Emails)</div>
+                    <div class="fuCategory" data-selected="false" data-id="2">Health & Fitness (e.g., Gym, Yoga, Diet)</div>
+                    <div class="fuCategory" data-selected="false" data-id="3">Home & Family (e.g., Cleaning, Shopping)</div>
+                    <div class="fuCategory" data-selected="false" data-id="4">Finance (e.g., Paying Bills, Budgeting)</div>
+                    <div class="fuCategory" data-selected="false" data-id="5">Social (e.g., Meeting Friends, Networking)</div>
+                    <div class="fuCategory" data-selected="false" data-id="6">Creative (e.g., Writing, Drawing, Music)</div>
+                </div>
+            </div>
+            <footer>
+                <button id="firstUseAcceptBtn">&check;</button>
+            </footer>
+        </div>
         <footer id="mainFooter">
             <button><img src="plan.png" onclick="window.location.href='kIndex.html';"></button>
             <button><img src="task.png" onclick="window.location.href='cIndex.html';"></button>
         </footer>
     </div>
-
+    <script src="cScriptUtils.js"></script>
     <script src="cScript.js"></script>
 </body>
 </html>

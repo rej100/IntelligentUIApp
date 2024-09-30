@@ -1,52 +1,51 @@
-class RGBA
-{
-    constructor(r, g, b, a)
-    {
-        this.r = r;
-        this.g = g;
-        this.b = b,
-        this.a = a;
-    }
-    toString()
-    {
-        // rgba(0, 0, 0, 0.25)
-        return "rgba(" + this.r + ", " + this.g + ", " + this.b + ", " + this.a + ")";
-    }
-}
-
-class Task
-{
-    constructor(text, importance, date, color, category, id, done)
-    {
-        this.text = text;
-        this.importance = importance;
-        this.date = date;
-        this.color = color;
-        this.category = category;
-        this.id = id;
-        this.done = done;
-    }
-
-    static fromFakeTask(fakeTask)
-    {
-        return new Task(fakeTask.text, fakeTask.importance, new Date(fakeTask.date), new RGBA(fakeTask.color.r, fakeTask.color.g, fakeTask.color.b, fakeTask.color.a), fakeTask.category, fakeTask.id, fakeTask.done);
-    }
-}
-
-document.getElementById("createTaskPageContainer").style.display="none";
 
 themeid = 0;
 lastTaskID = 0;
 tasks = [];
+tasksHistory = [];
 loadState();
 
-setInterval(saveState, 1000)
+if(localStorage.getItem("firstUse") == null)
+{
+    switchToFirstUsePage();
+}
+else
+{
+    switchToTaskPage();
+}
 
 document.getElementById("changeThemeBtn").addEventListener("click", handleChangeThemeBtn);
 document.getElementById("createTaskBtn").addEventListener("click", handleCreateTaskBtn);
 document.getElementById("clearDoneBtn").addEventListener("click", handleClearDoneBtn);
+
 document.getElementById("taskAcceptBtn").addEventListener("click", handleTaskAcceptBtn);
 document.getElementById("taskCancelBtn").addEventListener("click", handleTaskCancelBtn);
+
+document.getElementById("firstUseAcceptBtn").addEventListener("click", handlefirstUseAcceptBtn);
+initialiseFirstUseButtonsLogic();
+
+function initialiseFirstUseButtonsLogic()
+{
+    document.querySelectorAll('.fuCategory').forEach(function(div)
+    {
+        div.addEventListener('click', function()
+        {
+            // Toggle between green and gray
+            const isSelected = div.getAttribute('data-selected') === 'true';
+            
+            if (isSelected)
+            {
+                div.style.backgroundColor = 'lightgray';  // Set to gray
+                div.setAttribute('data-selected', 'false');
+            }
+            else
+            {
+                div.style.backgroundColor = 'lightgreen';  // Set to green
+                div.setAttribute('data-selected', 'true');
+            }
+        });
+    });
+}
 
 function saveState()
 {
@@ -55,6 +54,7 @@ function saveState()
     localStorage.setItem("themeid", themeid);
     localStorage.setItem("lastTaskID", lastTaskID);
     localStorage.setItem("tasks", JSON.stringify(tasks));
+    localStorage.setItem("tasksHistory", JSON.stringify(tasksHistory));
 }
 
 function loadState()
@@ -74,9 +74,15 @@ function loadState()
             tasks.push(Task.fromFakeTask(tempTask));
         });
 
-        changeTheme(themeid)
-        rebuildTasks()
+        tempTasksHistory = JSON.parse(localStorage.getItem("tasksHistory"));
+        tasksHistory = [];
+        tempTasksHistory.forEach(tempTask=>
+        {
+            tasksHistory.push(Task.fromFakeTask(tempTask));
+        });
 
+        changeTheme(themeid);
+        rebuildTasks();
     }
     else
     {
@@ -95,6 +101,7 @@ function handleChangeThemeBtn()
         themeid = 0;
     }
     changeTheme(themeid);
+    saveState();
 }
 function handleCreateTaskBtn()
 {
@@ -105,6 +112,7 @@ function handleClearDoneBtn()
 {
     clearDoneTasks()
     rebuildTasks()
+    saveState();
 }
 function handleTaskAcceptBtn()
 {
@@ -128,11 +136,46 @@ function handleTaskAcceptBtn()
     createTask(taskDescription, importance, dueDate, color, category)
     rebuildTasks()
     switchToTaskPage()
+    saveState();
 }
 function handleTaskCancelBtn()
 {
     switchToTaskPage()
     rebuildTasks()
+}
+
+function handlefirstUseAcceptBtn()
+{
+    var boolValues = []
+    document.querySelectorAll('.fuCategory').forEach(function(div)
+    {
+        var index = div.getAttribute("data-id");
+        var boolValue = div.getAttribute("data-selected");
+        boolValue = (boolValue === "true");
+        boolValues[index] = boolValue
+    });
+
+    var valid = false;
+    boolValues.forEach(boolValue =>
+    {
+        if (boolValue)
+        {
+            valid = true;
+        }
+    });
+
+    if (!valid)
+    {
+        alert("Please select at least one category.")
+
+    }
+    else
+    {
+        generateDummyTasks(boolValues, tasksHistory);
+        localStorage.setItem("firstUse", "false");
+        saveState();
+        switchToTaskPage();
+    }
 }
 
 function changeTheme(themeid)
@@ -152,16 +195,25 @@ function changeTheme(themeid)
     }
 }
 
-function switchToCreateTaskPage()
-{
-    document.getElementById("taskPageContainer").style.display="none"
-    document.getElementById("createTaskPageContainer").style.cssText=""
-}
-
 function switchToTaskPage()
 {
-    document.getElementById("taskPageContainer").style.cssText=""
-    document.getElementById("createTaskPageContainer").style.display="none"
+    document.getElementById("taskPageContainer").style.cssText="";
+    document.getElementById("createTaskPageContainer").style.display="none";
+    document.getElementById("firstUsePageContainer").style.display="none";
+    rebuildTasks();
+}
+
+function switchToCreateTaskPage()
+{
+    document.getElementById("taskPageContainer").style.display="none";
+    document.getElementById("createTaskPageContainer").style.cssText="";
+    document.getElementById("firstUsePageContainer").style.display="none";
+}
+function switchToFirstUsePage()
+{
+    document.getElementById("taskPageContainer").style.display="none";
+    document.getElementById("createTaskPageContainer").style.display="none";
+    document.getElementById("firstUsePageContainer").style.cssText="";
 }
 
 function rebuildTasks()
@@ -211,6 +263,7 @@ function addTaskToTaskList(task)
     checkbox.addEventListener("change", () =>
     {
         task.done = checkbox.checked;
+        saveState();
     });
 
     const taskText = document.createElement("span");
@@ -241,8 +294,9 @@ function addTaskToTaskList(task)
 
 function createTask(text, importance, date, color, category)
 {
-    newTask = new Task(text, importance, date, color, category, lastTaskID, false);
+    newTask = new Task(text, importance, date, color, category, lastTaskID, false, new Date());
     tasks.push(newTask);
+    tasksHistory.push(newTask);
     lastTaskID++;
 }
 
