@@ -55,6 +55,45 @@
                         <option value="3">High Priority</option>
                     </select>
                 </form>
+                <div id="aiSuggestionsContainer">
+                    <div id="aiSuggestionsHeader">
+                        <span>AI suggestions (click on a task to load)</span>
+                        <button id="refreshSuggestionsBtn"><img src="cResources\reload.png" alt=""></button>
+                    </div>
+                    <span class="aiSuggestionsLabel">High Priority</span>
+                    <div id="aiTaskHP" class="task">
+                        <div class="taskLeft">
+                            <input type="checkbox">
+                            <span>High Priority Task</span>
+                        </div>
+                        <div class="taskRight">
+                            <div class="taskImportance">10</div>
+                            <div class="taskDate">02/10/2024</div>
+                        </div>
+                    </div>
+                    <span class="aiSuggestionsLabel">Medium Priority</span>
+                    <div id="aiTaskMP" class="task">
+                        <div class="taskLeft">
+                            <input type="checkbox">
+                            <span>Medium Priority Task</span>
+                        </div>
+                        <div class="taskRight">
+                            <div class="taskImportance">5</div>
+                            <div class="taskDate">10/10/2024</div>
+                        </div>
+                    </div>
+                    <span class="aiSuggestionsLabel">Low Priority</span>
+                    <div id="aiTaskLP" class="task">
+                        <div class="taskLeft">
+                            <input type="checkbox">
+                            <span>Low Priority Task</span>
+                        </div>
+                        <div class="taskRight">
+                            <div class="taskImportance">0</div>
+                            <div class="taskDate">1/11/2024</div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <footer>
                 <button id="taskAcceptBtn">&check;</button>

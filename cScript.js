@@ -3,6 +3,11 @@ themeid = 0;
 lastTaskID = 0;
 tasks = [];
 tasksHistory = [];
+
+aiTaskHP = null;
+aiTaskMP = null;
+aiTaskLP = null;
+
 loadState();
 
 if(localStorage.getItem("firstUse") == null)
@@ -20,9 +25,53 @@ document.getElementById("clearDoneBtn").addEventListener("click", handleClearDon
 
 document.getElementById("taskAcceptBtn").addEventListener("click", handleTaskAcceptBtn);
 document.getElementById("taskCancelBtn").addEventListener("click", handleTaskCancelBtn);
+document.getElementById("refreshSuggestionsBtn").addEventListener("click", populateAISuggestions);
+document.getElementById("aiTaskHP").addEventListener("click", ()=>{loadFormFromTask(aiTaskHP)});
+document.getElementById("aiTaskMP").addEventListener("click", ()=>{loadFormFromTask(aiTaskMP)});
+document.getElementById("aiTaskLP").addEventListener("click", ()=>{loadFormFromTask(aiTaskLP)});
 
 document.getElementById("firstUseAcceptBtn").addEventListener("click", handlefirstUseAcceptBtn);
+
 initialiseFirstUseButtonsLogic();
+
+function populateAISuggestions()
+{
+    aiTaskHP = generateTaskSuggestion(getUniqueTasks(tasksHistory), 3);
+    aiTaskMP = generateTaskSuggestion(getUniqueTasks(tasksHistory), 2);
+    aiTaskLP = generateTaskSuggestion(getUniqueTasks(tasksHistory), 1);
+
+    aiTaskHPDiv = document.getElementById("aiTaskHP");
+    aiTaskMPDiv = document.getElementById("aiTaskMP");
+    aiTaskLPDiv = document.getElementById("aiTaskLP");
+
+    setTaskDivFromObj(aiTaskHPDiv, aiTaskHP);
+    setTaskDivFromObj(aiTaskMPDiv, aiTaskMP);
+    setTaskDivFromObj(aiTaskLPDiv, aiTaskLP);
+}
+
+function loadFormFromTask(task)
+{
+    console.log("tl")
+    document.getElementById('text').value = task.text;
+    document.getElementById('importance').value = task.importance;
+    document.getElementById('date').value = task.date.toISOString().split("T")[0];
+    document.getElementById('color').value = task.color.toStringHex();
+    document.getElementById('category').value = task.category;
+}
+
+function setTaskDivFromObj(taskDiv, taskObj)
+{
+    const taskNameElement = taskDiv.querySelector('.taskLeft span');
+    taskNameElement.textContent = taskObj.text;
+
+    const importanceElement = taskDiv.querySelector('.taskImportance');
+    importanceElement.textContent = taskObj.importance;
+
+    const dateElement = taskDiv.querySelector('.taskDate');
+    dateElement.textContent = formatDate(taskObj.date);
+
+    taskDiv.style.backgroundColor = taskObj.color.toString();
+}
 
 function initialiseFirstUseButtonsLogic()
 {
@@ -208,6 +257,7 @@ function switchToCreateTaskPage()
     document.getElementById("taskPageContainer").style.display="none";
     document.getElementById("createTaskPageContainer").style.cssText="";
     document.getElementById("firstUsePageContainer").style.display="none";
+    populateAISuggestions();
 }
 function switchToFirstUsePage()
 {
@@ -232,7 +282,7 @@ function buildTasks()
 
 function removeAllTasks()
 {
-    const tasks = document.querySelectorAll('.task');
+    const tasks = document.querySelectorAll('#taskPageContainer .task');
 
     tasks.forEach(task =>
     {
@@ -247,7 +297,7 @@ function clearDoneTasks()
 
 function addTaskToTaskList(task)
 {
-    taskCategoryContainer = document.getElementById("taskCategory" +task.category);
+    taskCategoryContainer = document.getElementById("taskCategory"+task.category);
     taskList = taskCategoryContainer.querySelector(".taskList")
 
     const taskDiv = document.createElement("div");

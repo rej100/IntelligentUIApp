@@ -318,3 +318,76 @@ input:invalid {
     flex-grow: 1;
     margin-bottom: 10px;
 }
+
+#aiSuggestionsContainer
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90vw;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+
+    border-radius: 10px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    background-color: #F2F2F2;
+}
+
+#aiSuggestionsHeader
+{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid;
+}
+
+#aiSuggestionsHeader span
+{
+    font-size: 20px;
+}
+
+#aiSuggestionsHeader button
+{
+    display: flex;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+
+    font-size: 20px;
+    border-radius: 3px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+
+    background-color: #ffffff;
+    width: 30px;
+    height: 30px;
+
+    transition: background-color 0.3s;
+    align-items: center;
+    justify-content: center;
+}
+
+#aiSuggestionsHeader button:hover
+{
+    background-color: #D9D9D9;
+}
+
+#aiSuggestionsHeader button img
+{
+    width: 80%;
+    height: 80%;
+}
+
+.aiSuggestionsLabel
+{
+    display: block;
+    width: 95%;
+    font-size: 16px;
+    padding: 5px;
+}
+
