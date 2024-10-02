@@ -1,13 +1,56 @@
-const tasks = document.getElementById("t")
 let id = 0;
 let categories = ['self-study', 'work', 'transport', 'workout', 'lecture', 'tutorial', 'lab', 'project meeting', 'other']
 let intervals = [];
 
+
+function storeArrayInLocalStorage() 
+{
+    localStorage.setItem('categories', JSON.stringify(categories));
+}
+
+
+function downloadArrayOnLoad() 
+{
+    let storedCategories = localStorage.getItem('categories');
+    if (!storedCategories) 
+    {
+        storeArrayInLocalStorage();
+        storedCategories = localStorage.getItem('categories');
+    }
+    categories = JSON.parse(storedCategories);
+}
+
+
+function addElementToArray(newElement) 
+{
+    if (!categories.includes(newElement) && newElement.trim() !== "") 
+    {
+        categories.push(newElement);
+        localStorage.setItem('categories', JSON.stringify(categories));
+        // adsadas
+        console.log(categories);
+    }
+}
+
+// Event listener for page load
+window.onload = function() 
+{
+    downloadArrayOnLoad();
+}
+
+const tasks = document.getElementById("t")
 for (let i = 0; i < tasks.children.length; i++) 
 {
     const element = tasks.children.item(i);
-    
     element.style.top = (((i*100)/25) + 0.8).toString() + "%";
+}
+
+function deleteTask(taskElement, start, end) {
+
+    taskElement.remove();
+
+    intervals = intervals.filter(interval => interval[0] !== start || interval[1] !== end);
+    console.log(`Task from ${start} to ${end} deleted.`);
 }
 
 function addTask(start, end, name, category)
@@ -29,9 +72,13 @@ function addTask(start, end, name, category)
     div.style.top = (((start*100)/25) + 0.8).toString() + "%";
     div.style.bottom = (100 - (((end*100)/25) + 0.8)).toString() + "%";
     div.innerHTML =  "<span> " + name + " ("+ category + ")" +" </span>";
-    tasks.append(div)
 
+    tasks.append(div);
     intervals.push([start, end]); 
+
+    div.addEventListener('click', function () {
+        deleteTask(div, start, end);
+    });
 }
 
 addTask(8.5, 13, 'Introduction to AI', 'tutorial');
@@ -69,6 +116,7 @@ function showAddWindow(s)
     if(s !== 'addCategory')
     {
         let selectCategory = document.getElementById('category');
+        selectCategory.innerHTML = '';
         for (let i = 0; i < categories.length; i++)
         {
             const element = categories[i];
@@ -87,8 +135,7 @@ function addCategory()
         return;
     }
     
-    if(categories.includes(category)) alert("This category already exisits");
-    else categories.push(category);
+    addElementToArray(category);
 
     reset(document.getElementById("addCategory"));
     cancelWindow("addCategory");
