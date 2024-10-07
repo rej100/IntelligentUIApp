@@ -70,7 +70,7 @@ hr {
     min-width: 120px;
     display: flex;
     flex-direction: column;
-    height: 20vh;
+    height: 25vh;
     justify-content: space-around;
     align-items: center;
 }

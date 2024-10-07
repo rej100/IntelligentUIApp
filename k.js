@@ -3,8 +3,8 @@ let categories = ['self-study', 'work', 'transport', 'workout', 'lecture', 'tuto
 let intervals = [];
 let tasksArray = [];
 let taskMap = new Map();
-// let currDay = new Date().getDay(); // Gets the current day (0 = Sunday, 6 = Saturday)
-let currDay = 3
+let currDay = new Date().getDay(); // Gets the current day (0 = Sunday, 6 = Saturday)
+// let currDay = 1
 
 function storeArrayInLocalStorage() 
 {
@@ -21,9 +21,9 @@ function downloadArrayOnLoad()
     }
     categories = JSON.parse(storedCategories);
 
-    if (localStorage.getItem('tasks')) 
+    if (localStorage.getItem('activities')) 
     {
-        tasksArray = JSON.parse(localStorage.getItem('tasks'));
+        tasksArray = JSON.parse(localStorage.getItem('activities'));
         let oldTasks = []
         tasksArray.forEach(task => 
         {
@@ -40,7 +40,7 @@ function downloadArrayOnLoad()
         //delete tasks from yesterday
         tasksArray = tasksArray.filter(t => !oldTasks.includes(t));
 
-        localStorage.setItem('tasks', JSON.stringify(tasksArray));
+        localStorage.setItem('activities', JSON.stringify(tasksArray));
     }
 }
 
@@ -56,29 +56,22 @@ function addElementToArray(newElement)
 const tasks = document.getElementById("t")
 function populateDailyPlanner()
 {
-    downloadArrayOnLoad();
+    loadTaskMapFromStorage();
+    archList = getFrequentTasksForDay(currDay);
 
-    if(tasksArray.length === 0)
+    archList.forEach(task => 
     {
-        loadTaskMapFromStorage();
-        tasksArray = getFrequentTasksForDay(currDay);
-
-        tasksArray.forEach(task => 
+        if(task.day === currDay)
         {
-            if(task.day === currDay)
-            {
-                intervals.push([task.start, task.end]);
-                renderTask(task);
-            } 
-        });
-        localStorage.setItem('tasks', JSON.stringify(tasksArray));
-    }
+            addTask(task.start, task.end, task.name, task.category, true);
+        } 
+    });
 }
 
 // Event listener
 window.onload = function()
 {
-    populateDailyPlanner();
+    //downloadArrayOnLoad();
 }
 
 for (let i = 0; i < tasks.children.length; i++) 
@@ -92,33 +85,33 @@ function deleteTask(div, task)
     intervals = intervals.filter(interval => interval[0] !== task.start || interval[1] !== task.end);
     tasksArray = tasksArray.filter( t => t.start !== task.start || t.end !== task.end || t.name !== task.name || t.category !== task.category);
 
-    localStorage.setItem('tasks', JSON.stringify(tasksArray));
+    localStorage.setItem('activities', JSON.stringify(tasksArray));
 
     div.remove();
 }
 
-function addTask(start, end, name, category)
+function addTask(start, end, name, category, fromArchive)
 {
     if (end > 24)
     {
-        alert("You cannot schedule tasks which end tomorrow");
+        if(!fromArchive) alert("You cannot schedule tasks which end tomorrow");
         return;
     }
 
     if (hasOverlap([start, end]))
     {
-        alert("You cannot schedule 2 activities at the same time");
+        if(!fromArchive) alert("You cannot schedule 2 activities at the same time");
         return;
     }
 
     let task = { start: start, end: end, name: name, category: category, day: currDay };
 
     renderTask(task);
-    addToArchive(task);
+    if(!fromArchive) addToArchive(task);
     tasksArray.push(task);
     intervals.push([start, end]); 
 
-    localStorage.setItem('tasks', JSON.stringify(tasksArray));
+    localStorage.setItem('activities', JSON.stringify(tasksArray));
 }
 
 function renderTask(task)
@@ -215,7 +208,7 @@ function submitTask()
     let end = start + Number(list[2])/60;
     let category = list[3];
 
-    addTask(start, end, title, category);
+    addTask(start, end, title, category, false);
     list = [];
     cancelWindow("addTaskForm");
 }
@@ -306,22 +299,20 @@ function getFrequentTasksForDay(day) {
             });
         }
     }
-    console.log(taskFrequencyForDay)
 
     if (taskFrequencyForDay.length === 0) return [];
 
     taskFrequencyForDay.sort((a, b) => b.count - a.count);
 
-    let N = Math.max(Math.ceil(taskFrequencyForDay.length / 2), 2);
-    N = Math.min(taskFrequencyForDay.length, N);
+    let N = Math.floor(taskFrequencyForDay.length / 2);
 
     for (let i = N; i < taskFrequencyForDay.length; i++)
     {
-        if(taskFrequencyForDay.at(i).count === taskFrequencyForDay.at(N).count) N = Math.max(N, i + 1);
+        if(taskFrequencyForDay.at(i).count === taskFrequencyForDay.at(N).count) N = Math.max(N, i);
     }
 
     // Get the top N tasks
-    const topTasks = taskFrequencyForDay.slice(0, N).map(entry => entry.task);
+    const topTasks = taskFrequencyForDay.slice(0, N + 1).map(entry => entry.task);
 
     return topTasks;
 }
