@@ -4,9 +4,10 @@ let intervals = [];
 let tasksArray = [];
 let taskMap = new Map();
 let currDay = new Date().getDay(); // Gets the current day (0 = Sunday, 6 = Saturday)
+let useDummyData = true;
 // let currDay = 1
 
-function storeArrayInLocalStorage() 
+function storeArrayInLocalStorage()
 {
     localStorage.setItem('categories', JSON.stringify(categories));
 }
@@ -71,7 +72,7 @@ function populateDailyPlanner()
 // Event listener
 window.onload = function()
 {
-    //downloadArrayOnLoad();
+    downloadArrayOnLoad();
 }
 
 for (let i = 0; i < tasks.children.length; i++) 
@@ -193,7 +194,7 @@ function submitTask()
 
     let data = true;
     list.forEach(element => {
-        if(element === '')
+        if(element === '' && data)
         {
             alert("Fill in all input fields");
             data = false;
@@ -201,6 +202,8 @@ function submitTask()
             return;
         }
     });
+
+    if(!data) return;
 
     let title = list[0];
     let first = list[1];
@@ -260,6 +263,7 @@ function createArchive(arr) {
         }
     }
 }
+
 function addToArchive(task)
 {
     const taskKey = generateTaskKey(task);
@@ -280,7 +284,7 @@ function addToArchive(task)
 }
 
 /**
- * Function to get the top 50% tasks based on frequency for a given day.
+ * Function to get the top 50%(approximately) tasks based on frequency for a given day.
  * @param {number} day - The day number (e.g., 1 for Monday, 2 for Tuesday, etc.)
  * @returns {Array} - An array of tasks meeting the criteria
  */
@@ -337,9 +341,8 @@ function saveTaskMap() {
     localStorage.setItem('taskMap', serializedTaskMap);
 }
 
-// Function to upload (load) the taskMap from localStorage
+// Function to load the taskMap from localStorage
 function loadTaskMapFromStorage() {
-    // Retrieve the serialized taskMap from localStorage
     const serializedTaskMap = localStorage.getItem('taskMap');
 
     if (serializedTaskMap) {
@@ -355,7 +358,7 @@ function loadTaskMapFromStorage() {
         }
     } else {
         // If no data is found, initialize the taskMap
-        initArchive();
+        if(useDummyData) initArchive();
     }
 }
 
