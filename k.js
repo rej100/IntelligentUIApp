@@ -20,12 +20,9 @@ function downloadArrayOnLoad()
     }
     categories = JSON.parse(storedCategories);
 
-    if (localStorage.getItem('tasks')) 
+    if (localStorage.getItem('activities')) 
     {
-        tasksArray = JSON.parse(localStorage.getItem('tasks'));
-
-        console.log("downloadArrayOnLoad")
-        //console.log(tasksArray)
+        tasksArray = JSON.parse(localStorage.getItem('activities'));
 
         tasksArray.forEach(task => 
         {
@@ -49,15 +46,6 @@ function addElementToArray(newElement)
 window.onload = function()
 {
     downloadArrayOnLoad();
-
-    if(tasksArray.length == 0)
-    {
-    addTask(8.5, 13, 'Introduction to AI', 'tutorial');
-    addTask(13.5, 15.5, 'Computer Netorks', 'lecture');
-    addTask(16, 18, 'IUI', 'tutorial');
-    }
-
-    console.log(tasksArray);
 }
 
 const tasks = document.getElementById("t")
@@ -72,8 +60,7 @@ function deleteTask(div, task)
     intervals = intervals.filter(interval => interval[0] !== task.start || interval[1] !== task.end);
     tasksArray = tasksArray.filter( t => t.start !== task.start || t.end !== task.end || t.name !== task.name || t.category !== task.category);
 
-    localStorage.setItem('tasks', JSON.stringify(tasksArray));
-    console.log(JSON.parse(localStorage.getItem('tasks')))
+    localStorage.setItem('activities', JSON.stringify(tasksArray));
 
     div.remove();
 }
@@ -97,11 +84,10 @@ function addTask(start, end, name, category)
     let task = { start: start, end: end, name: name, category: category, day: day };
 
     renderTask(task);
-    console.log(task)
     tasksArray.push(task);
     intervals.push([start, end]); 
 
-    localStorage.setItem('tasks', JSON.stringify(tasksArray));
+    localStorage.setItem('activities', JSON.stringify(tasksArray));
 }
 
 function renderTask(task)
